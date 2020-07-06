@@ -157,29 +157,28 @@ address[] memory _partnerAddress,bytes32[] memory _handle){
     }
 }
     
+        
 function updateProduct(uint256 _productId,
                     bytes32 _productName,
                     bytes32[] memory _productState,
                     bytes32[] memory _productTimeStamp,
-                    address[] memory _partnerAddress,bytes32[] memory _handle) public onlyPartners() {
-    //for(uint i;i<product.length;i++){
-       // if(product[i]._productId==_productId) {
-            if((product[_productId]._productState==getByPartnerAddress[msg.sender]._stage) && (product[_productId]._handle ==getByPartnerAddress[msg.sender]._handle)){
+                    address[] memory _partnerAddress,bytes32[] memory _handle)
+                    public onlyPartners() {
+                 //require(getByPartnerAddress[msg.sender]._partnerAddress);       
+            if(keccak256(product[_productId]._productState) == keccak256(getByPartnerAddress[msg.sender]._stage))&& (keccak256(product[_productId]._handle)==keccak256(getByPartnerAddress[msg.sender]._handle))
+            { 
                 product[_productId]._productName = _productName;
                 product[_productId]._productState = _productState;
                 product[_productId]._productTimeStamp = _productTimeStamp;
                 product[_productId]._partnerAddress = _partnerAddress;
                 product[_productId]._handle=_handle;
             }
+            
+            
         
     }
       
     //Product memory _product = Product(productUniqueId++,_productName,_productState,_productTimeStamp,_partnerAddress,_handle);
     //product.push(_product);
    //getByProductId[_productId]=_product;
-
-
-    
-    
-    
 }
